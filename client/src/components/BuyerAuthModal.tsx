@@ -209,7 +209,7 @@ export const BuyerAuthModal: React.FC<BuyerAuthModalProps> = ({ isOpen, onClose,
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-3 bg-black/75 backdrop-blur-sm overflow-y-auto animate-fadeIn">
-      <div className="bg-white w-full max-w-md rounded-3xl shadow-2xl border border-gray-100 overflow-hidden my-auto max-h-[92vh] flex flex-col">
+      <div className="bg-white w-full max-w-md md:max-w-xl rounded-3xl shadow-2xl border border-gray-100 overflow-hidden my-auto max-h-[92vh] flex flex-col">
         {/* Header */}
         <div className="bg-gradient-to-r from-amber-700 via-amber-600 to-amber-800 p-4 text-white flex items-center justify-between flex-shrink-0">
           <div className="flex items-center space-x-2.5">

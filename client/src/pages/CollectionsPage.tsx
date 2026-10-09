@@ -163,7 +163,7 @@ export const CollectionsPage: React.FC<CollectionsPageProps> = ({ onSelectLot, o
       </div>
 
       {/* Collection Cards List */}
-      <div className="space-y-2.5">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3.5">
         {filteredLots.length === 0 ? (
           <div className="bg-white rounded-2xl p-8 text-center border border-dashed border-gray-300 text-gray-500 text-xs">
             <Layers className="w-8 h-8 text-gray-400 mx-auto mb-2 opacity-50" />

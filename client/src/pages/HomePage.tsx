@@ -60,62 +60,64 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
   }, [pendingLotsCount]);
 
   return (
-    <div className="space-y-4 pb-20">
+    <div className="space-y-4 md:space-y-6 pb-20">
       {/* Hero Card / Profile Banner */}
-      <div className="bg-gradient-to-br from-brand-900 via-brand-800 to-emerald-950 text-white rounded-2xl p-5 shadow-lg relative overflow-hidden">
+      <div className="bg-gradient-to-br from-brand-900 via-brand-800 to-emerald-950 text-white rounded-2xl md:rounded-3xl p-5 md:p-7 shadow-lg relative overflow-hidden">
         {/* Subtle decorative background circle */}
-        <div className="absolute -right-8 -bottom-8 w-36 h-36 bg-emerald-500/10 rounded-full blur-xl pointer-events-none" />
+        <div className="absolute -right-8 -bottom-8 w-48 h-48 bg-emerald-500/10 rounded-full blur-2xl pointer-events-none" />
 
-        <div className="flex justify-between items-start">
-          <div>
-            <span className="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 inline-block mb-1.5">
-              ID: {collector.collectorId || 'KC-COL-101'}
-            </span>
-            <h2 className="text-xl font-black tracking-tight">
-              {collector.name || 'Ramesh Kumar'}
-            </h2>
-            <p className="text-xs text-emerald-200/80">
-              {t('app.subtitle')}
-            </p>
+        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-5">
+          <div className="flex justify-between items-start md:block">
+            <div>
+              <span className="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 inline-block mb-1.5">
+                ID: {collector.collectorId || 'KC-COL-101'}
+              </span>
+              <h2 className="text-xl md:text-2xl font-black tracking-tight">
+                {collector.name || 'Ramesh Kumar'}
+              </h2>
+              <p className="text-xs md:text-sm text-emerald-200/80 mt-0.5">
+                {t('app.subtitle')}
+              </p>
+            </div>
+
+            <button
+              onClick={() => onNavigate('profile')}
+              className="md:hidden w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 flex items-center justify-center text-lg shadow-inner flex-shrink-0 ml-3"
+            >
+              👨‍🔧
+            </button>
           </div>
 
-          <button
-            onClick={() => onNavigate('profile')}
-            className="w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 flex items-center justify-center text-lg shadow-inner"
-          >
-            👨‍🔧
-          </button>
-        </div>
+          {/* Live Aggregated Statistics */}
+          <div className="grid grid-cols-3 gap-2 md:gap-3 md:min-w-[420px] pt-3 md:pt-0 border-t md:border-t-0 md:border-l border-emerald-700/50 md:pl-5 text-center">
+            <div className="bg-white/5 rounded-xl p-2.5 border border-white/5">
+              <span className="text-[10px] text-emerald-300 uppercase block font-semibold">
+                {t('home.statLots')}
+              </span>
+              <span className="text-lg md:text-xl font-black text-white">
+                {localStats.totalLots}
+              </span>
+            </div>
 
-        {/* Live Aggregated Statistics */}
-        <div className="grid grid-cols-3 gap-2 mt-4 pt-3 border-t border-emerald-700/50 text-center">
-          <div className="bg-white/5 rounded-xl p-2 border border-white/5">
-            <span className="text-[10px] text-emerald-300 uppercase block font-semibold">
-              {t('home.statLots')}
-            </span>
-            <span className="text-lg font-black text-white">
-              {localStats.totalLots}
-            </span>
-          </div>
+            <div className="bg-white/5 rounded-xl p-2.5 border border-white/5">
+              <span className="text-[10px] text-emerald-300 uppercase block font-semibold flex items-center justify-center">
+                <Scale className="w-2.5 h-2.5 mr-0.5" />
+                {t('home.statWeight')}
+              </span>
+              <span className="text-lg md:text-xl font-black text-white">
+                {localStats.totalWeight} <span className="text-xs font-normal text-emerald-300">kg</span>
+              </span>
+            </div>
 
-          <div className="bg-white/5 rounded-xl p-2 border border-white/5">
-            <span className="text-[10px] text-emerald-300 uppercase block font-semibold flex items-center justify-center">
-              <Scale className="w-2.5 h-2.5 mr-0.5" />
-              {t('home.statWeight')}
-            </span>
-            <span className="text-lg font-black text-white">
-              {localStats.totalWeight} <span className="text-xs font-normal text-emerald-300">kg</span>
-            </span>
-          </div>
-
-          <div className="bg-white/5 rounded-xl p-2 border border-white/5">
-            <span className="text-[10px] text-emerald-300 uppercase block font-semibold flex items-center justify-center">
-              <IndianRupee className="w-2.5 h-2.5 mr-0.5" />
-              {t('home.statValue')}
-            </span>
-            <span className="text-lg font-black text-amber-300">
-              ₹{localStats.totalValue}
-            </span>
+            <div className="bg-white/5 rounded-xl p-2.5 border border-white/5">
+              <span className="text-[10px] text-emerald-300 uppercase block font-semibold flex items-center justify-center">
+                <IndianRupee className="w-2.5 h-2.5 mr-0.5" />
+                {t('home.statValue')}
+              </span>
+              <span className="text-lg md:text-xl font-black text-amber-300">
+                ₹{localStats.totalValue}
+              </span>
+            </div>
           </div>
         </div>
       </div>
@@ -123,17 +125,17 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
       {/* PRIMARY HIGH-CONTRAST ACTION: ADD COLLECTION */}
       <button
         onClick={() => onNavigate('add')}
-        className="w-full bg-gradient-to-r from-brand-700 via-brand-600 to-emerald-600 text-white font-extrabold p-4 rounded-2xl shadow-lg shadow-brand-700/30 flex items-center justify-between active:scale-[0.98] transition-transform border-2 border-brand-500/40 group"
+        className="w-full bg-gradient-to-r from-brand-700 via-brand-600 to-emerald-600 text-white font-extrabold p-4 md:p-5 rounded-2xl shadow-lg shadow-brand-700/30 flex items-center justify-between active:scale-[0.98] transition-transform border-2 border-brand-500/40 group"
       >
         <div className="flex items-center space-x-3 text-left">
           <div className="w-12 h-12 rounded-xl bg-white/20 flex items-center justify-center text-white text-2xl shadow-inner group-hover:scale-105 transition-transform">
             📷
           </div>
           <div>
-            <span className="text-lg block tracking-wide leading-tight">
+            <span className="text-lg md:text-xl block tracking-wide leading-tight">
               {t('home.addCollection')}
             </span>
-            <span className="text-xs font-medium text-emerald-100">
+            <span className="text-xs md:text-sm font-medium text-emerald-100">
               {t('home.addCollectionSub')}
             </span>
           </div>
@@ -144,7 +146,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
       </button>
 
       {/* Grid of Main 4 Actions */}
-      <div className="grid grid-cols-2 gap-3">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
         {/* My Collections */}
         <button
           onClick={() => onNavigate('collections')}
@@ -243,7 +245,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
             {t('home.noCollections')}
           </div>
         ) : (
-          <div className="space-y-2">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
             {recentLots.map((lot) => (
               <div
                 key={lot.clientId}

@@ -1,8 +1,24 @@
 import React from 'react';
 import { useApp } from '../context/AppContext.tsx';
-import { Wifi, WifiOff, RefreshCw, Globe, ShieldAlert } from 'lucide-react';
+import {
+  Wifi,
+  WifiOff,
+  RefreshCw,
+  Globe,
+  Home,
+  Layers,
+  Plus,
+  MapPin,
+  TrendingUp,
+  ShieldAlert,
+  User,
+} from 'lucide-react';
 
-export const Navbar: React.FC<{ onOpenDebug?: () => void }> = ({ onOpenDebug }) => {
+export const Navbar: React.FC<{
+  currentTab?: string;
+  onNavigate?: (tab: string) => void;
+  onOpenDebug?: () => void;
+}> = ({ currentTab, onNavigate, onOpenDebug }) => {
   const {
     t,
     language,
@@ -18,11 +34,14 @@ export const Navbar: React.FC<{ onOpenDebug?: () => void }> = ({ onOpenDebug }) 
   const isActuallyOnline = syncState.isOnline && syncState.isBackendReachable;
 
   return (
-    <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-gray-200 shadow-sm px-4 py-2.5 transition-all">
-      <div className="max-w-md mx-auto flex items-center justify-between">
+    <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-gray-200 shadow-sm px-4 sm:px-6 lg:px-8 py-2.5 transition-all">
+      <div className="max-w-7xl mx-auto flex items-center justify-between gap-4">
         {/* Logo & Greeting */}
-        <div className="flex items-center space-x-2">
-          <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-brand-700 to-brand-500 flex items-center justify-center text-white shadow-md shadow-brand-500/20 font-black text-lg">
+        <div
+          className="flex items-center space-x-2.5 cursor-pointer"
+          onClick={() => onNavigate && onNavigate('home')}
+        >
+          <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-brand-700 to-brand-500 flex items-center justify-center text-white shadow-md shadow-brand-500/20 font-black text-lg flex-shrink-0">
             ♻️
           </div>
           <div>
@@ -40,8 +59,53 @@ export const Navbar: React.FC<{ onOpenDebug?: () => void }> = ({ onOpenDebug }) 
           </div>
         </div>
 
+        {/* Desktop Navigation Tabs */}
+        {onNavigate && (
+          <nav className="hidden md:flex items-center space-x-1 lg:space-x-1.5">
+            {[
+              { id: 'home', label: t('nav.home'), icon: Home },
+              { id: 'collections', label: t('nav.collections'), icon: Layers, badge: pendingLotsCount },
+              { id: 'map', label: t('nav.map'), icon: MapPin },
+              { id: 'prices', label: t('home.priceCheck'), icon: TrendingUp },
+              { id: 'safety', label: t('home.safety'), icon: ShieldAlert },
+              { id: 'profile', label: t('nav.profile'), icon: User },
+            ].map((item) => {
+              const Icon = item.icon;
+              const isActive = currentTab === item.id;
+              return (
+                <button
+                  key={item.id}
+                  onClick={() => onNavigate(item.id)}
+                  className={`flex items-center space-x-1.5 px-3 py-1.5 rounded-xl text-xs font-bold transition-all relative ${
+                    isActive
+                      ? 'bg-brand-50 text-brand-800 shadow-sm'
+                      : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
+                  }`}
+                >
+                  <Icon className={`w-3.5 h-3.5 ${isActive ? 'stroke-[2.5]' : 'stroke-2'}`} />
+                  <span>{item.label}</span>
+                  {item.badge && item.badge > 0 ? (
+                    <span className="ml-0.5 bg-amber-500 text-white text-[9px] font-black px-1.5 py-0.2 rounded-full">
+                      {item.badge}
+                    </span>
+                  ) : null}
+                </button>
+              );
+            })}
+
+            {/* Desktop Add Collection CTA */}
+            <button
+              onClick={() => onNavigate('add')}
+              className="flex items-center space-x-1 px-3 py-1.5 rounded-xl bg-gradient-to-r from-brand-700 to-brand-600 text-white font-extrabold text-xs shadow-md hover:from-brand-800 hover:to-brand-700 active:scale-95 transition-all ml-1.5"
+            >
+              <Plus className="w-3.5 h-3.5 stroke-[3]" />
+              <span>{t('home.addCollection')}</span>
+            </button>
+          </nav>
+        )}
+
         {/* Status Indicators & Actions */}
-        <div className="flex items-center space-x-2">
+        <div className="flex items-center space-x-2 flex-shrink-0">
           {/* Online/Offline Pill */}
           <button
             onClick={toggleSimulatedOffline}

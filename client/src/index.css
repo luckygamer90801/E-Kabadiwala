@@ -52,3 +52,49 @@
   background: rgba(0, 0, 0, 0.1);
   border-radius: 9999px;
 }
+
+/* GPS User Radar Pulsing Marker */
+.gps-user-marker {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.gps-pulse-ring {
+  position: absolute;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: rgba(37, 99, 235, 0.35);
+  border: 1.5px solid rgba(37, 99, 235, 0.6);
+  animation: gpsRadar 2.2s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+  pointer-events: none;
+}
+
+.gps-center-dot {
+  position: relative;
+  width: 16px;
+  height: 16px;
+  background-color: #2563eb;
+  border-radius: 50%;
+  border: 3px solid #ffffff;
+  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.7);
+  z-index: 2;
+}
+
+@keyframes gpsRadar {
+  0% {
+    transform: scale(0.4);
+    opacity: 1;
+  }
+  70% {
+    transform: scale(2.0);
+    opacity: 0.15;
+  }
+  100% {
+    transform: scale(2.5);
+    opacity: 0;
+  }
+}
+

@@ -47,10 +47,14 @@ export const MainApp: React.FC = () => {
         onClose={() => setUserRole('collector')}
       />
 
-      {/* Mobile Shell Wrapper for Collector */}
-      <div className="w-full max-w-md mx-auto min-h-screen flex flex-col bg-white shadow-2xl relative">
+      {/* Responsive Shell Wrapper for Collector */}
+      <div className="w-full max-w-7xl mx-auto min-h-screen flex flex-col bg-white shadow-sm sm:border-x sm:border-gray-200/80 relative">
         {/* Sticky Top Header */}
-        <Navbar onOpenDebug={() => navigateTo('debug')} />
+        <Navbar
+          currentTab={currentTab}
+          onNavigate={(tab) => navigateTo(tab)}
+          onOpenDebug={() => navigateTo('debug')}
+        />
 
         {/* Community Report Ban Alert Banner */}
         <BanAlertBanner />
@@ -59,7 +63,7 @@ export const MainApp: React.FC = () => {
         <OfflineBanner />
 
         {/* Dynamic Page Content */}
-        <main className="flex-1 px-4 pt-3 pb-20 overflow-y-auto">
+        <main className="flex-1 px-4 sm:px-6 lg:px-8 pt-4 pb-24 md:pb-12 overflow-y-auto w-full">
           {currentTab === 'home' && (
             <HomePage onNavigate={navigateTo} />
           )}

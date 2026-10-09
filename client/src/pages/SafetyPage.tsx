@@ -36,7 +36,7 @@ export const SafetyPage: React.FC = () => {
       </div>
 
       {/* Safety Alert Cards List */}
-      <div className="space-y-3">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {safetyAlerts.map((alert) => {
           const isHigh = alert.severity === 'HIGH';
           const isSpeaking = activeSpeakingId === alert.alertId;

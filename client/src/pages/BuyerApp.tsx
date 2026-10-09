@@ -284,12 +284,12 @@ export const BuyerApp: React.FC<{ onSwitchToCollector: () => void }> = ({ onSwit
 
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col font-sans">
-      <div className="w-full max-w-md mx-auto min-h-screen flex flex-col bg-white shadow-2xl relative">
+      <div className="w-full max-w-7xl mx-auto min-h-screen flex flex-col bg-white shadow-sm sm:border-x sm:border-gray-200/80 relative">
         {/* Sticky Top Header for Buyer */}
-        <header className="sticky top-0 z-40 bg-gradient-to-r from-amber-700 via-amber-600 to-amber-800 text-white shadow-md p-3">
-          <div className="flex items-center justify-between">
+        <header className="sticky top-0 z-40 bg-gradient-to-r from-amber-700 via-amber-600 to-amber-800 text-white shadow-md p-3 sm:px-6 lg:px-8">
+          <div className="max-w-7xl mx-auto w-full flex items-center justify-between">
             <div className="flex items-center space-x-2.5">
-              <div className="w-10 h-10 rounded-2xl bg-white/10 flex items-center justify-center text-2xl border border-white/20 shadow-inner">
+              <div className="w-10 h-10 rounded-2xl bg-white/10 flex items-center justify-center text-2xl border border-white/20 shadow-inner flex-shrink-0">
                 🏢
               </div>
               <div>
@@ -313,10 +313,10 @@ export const BuyerApp: React.FC<{ onSwitchToCollector: () => void }> = ({ onSwit
             {/* Switch Role Button */}
             <button
               onClick={onSwitchToCollector}
-              className="px-2 py-1 bg-white/15 hover:bg-white/25 rounded-xl text-[10px] font-extrabold text-white border border-white/20 flex items-center space-x-1 transition-all active:scale-95"
+              className="px-2.5 py-1 bg-white/15 hover:bg-white/25 rounded-xl text-xs font-extrabold text-white border border-white/20 flex items-center space-x-1 transition-all active:scale-95"
               title="Switch back to Collector role"
             >
-              <RotateCcw className="w-3 h-3" />
+              <RotateCcw className="w-3.5 h-3.5" />
               <span>Collector Mode</span>
             </button>
           </div>
@@ -326,30 +326,32 @@ export const BuyerApp: React.FC<{ onSwitchToCollector: () => void }> = ({ onSwit
         <BanAlertBanner />
 
         {/* Buyer Navigation Tabs */}
-        <div className="flex border-b border-gray-200 bg-gray-50 p-1.5 gap-1 text-xs">
-          {[
-            { id: 'feed' as const, label: 'Scrap Feed', icon: '📦' },
-            { id: 'map' as const, label: 'Lots Map', icon: '🗺️' },
-            { id: 'purchases' as const, label: 'My Purchases', icon: '🧾' },
-            { id: 'profile' as const, label: 'Shop Profile', icon: '⚙️' },
-          ].map((tab) => (
-            <button
-              key={tab.id}
-              onClick={() => setActiveTab(tab.id)}
-              className={`flex-1 py-1.5 rounded-xl font-bold flex items-center justify-center space-x-1 transition-all ${
-                activeTab === tab.id
-                  ? 'bg-amber-600 text-white shadow-sm'
-                  : 'text-gray-600 hover:text-gray-900 hover:bg-gray-200/60'
-              }`}
-            >
-              <span>{tab.icon}</span>
-              <span>{tab.label}</span>
-            </button>
-          ))}
+        <div className="border-b border-gray-200 bg-gray-50 p-1.5 sm:px-6 lg:px-8 text-xs">
+          <div className="max-w-7xl mx-auto flex gap-1 sm:gap-2">
+            {[
+              { id: 'feed' as const, label: 'Scrap Feed', icon: '📦' },
+              { id: 'map' as const, label: 'Lots Map', icon: '🗺️' },
+              { id: 'purchases' as const, label: 'My Purchases', icon: '🧾' },
+              { id: 'profile' as const, label: 'Shop Profile', icon: '⚙️' },
+            ].map((tab) => (
+              <button
+                key={tab.id}
+                onClick={() => setActiveTab(tab.id)}
+                className={`flex-1 py-2 sm:py-2.5 rounded-xl font-bold flex items-center justify-center space-x-1.5 transition-all ${
+                  activeTab === tab.id
+                    ? 'bg-amber-600 text-white shadow-sm'
+                    : 'text-gray-600 hover:text-gray-900 hover:bg-gray-200/60'
+                }`}
+              >
+                <span>{tab.icon}</span>
+                <span>{tab.label}</span>
+              </button>
+            ))}
+          </div>
         </div>
 
         {/* MAIN BODY */}
-        <main className="flex-1 p-4 pb-24 overflow-y-auto space-y-4">
+        <main className="flex-1 p-4 sm:p-6 lg:p-8 pb-24 overflow-y-auto space-y-4 max-w-7xl mx-auto w-full">
           {/* TAB 1: SCRAP FEED / LOT MARKET */}
           {activeTab === 'feed' && (
             <div className="space-y-3.5 animate-fadeIn">
@@ -404,7 +406,7 @@ export const BuyerApp: React.FC<{ onSwitchToCollector: () => void }> = ({ onSwit
               </div>
 
               {/* Lots List */}
-              <div className="space-y-3">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3.5">
                 {filteredLots.length === 0 ? (
                   <div className="bg-white rounded-2xl p-8 text-center border border-dashed border-gray-300 text-gray-500 text-xs">
                     <Layers className="w-8 h-8 text-gray-400 mx-auto mb-2 opacity-50" />
@@ -622,7 +624,7 @@ export const BuyerApp: React.FC<{ onSwitchToCollector: () => void }> = ({ onSwit
                 Purchased Lots & Transaction History
               </h3>
 
-              <div className="space-y-2.5">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3.5">
                 {filteredLots.length === 0 ? (
                   <div className="bg-white rounded-2xl p-8 text-center border border-dashed border-gray-300 text-gray-500 text-xs">
                     <CheckCircle2 className="w-8 h-8 text-gray-400 mx-auto mb-2 opacity-50" />

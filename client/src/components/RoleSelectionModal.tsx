@@ -20,7 +20,7 @@ export const RoleSelectionModal: React.FC<RoleSelectionModalProps> = ({ isOpen, 
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm animate-fadeIn">
-      <div className="bg-white w-full max-w-sm rounded-3xl shadow-2xl border border-gray-100 overflow-hidden transform transition-all">
+      <div className="bg-white w-full max-w-lg rounded-3xl shadow-2xl border border-gray-100 overflow-hidden transform transition-all">
         {/* Header Hero */}
         <div className="bg-gradient-to-br from-brand-800 via-brand-700 to-emerald-600 p-6 text-white text-center relative">
           <div className="w-14 h-14 bg-white/10 rounded-2xl flex items-center justify-center mx-auto mb-3 shadow-inner backdrop-blur-md border border-white/20 text-3xl">

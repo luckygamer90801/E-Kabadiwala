@@ -35,7 +35,7 @@ export const BanAlertBanner: React.FC = () => {
 
   return (
     <div className="bg-red-600 text-white p-3 shadow-md border-b-2 border-red-800 animate-fadeIn">
-      <div className="max-w-md mx-auto flex items-start justify-between space-x-2">
+      <div className="max-w-7xl mx-auto flex items-start justify-between space-x-2">
         <div className="flex items-start space-x-2.5">
           <Ban className="w-5 h-5 flex-shrink-0 mt-0.5 text-white animate-pulse" />
           <div>
